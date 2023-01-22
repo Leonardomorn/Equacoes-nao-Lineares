@@ -51,9 +51,37 @@ double newtonRaphson (Polinomio p, double x0, double eps,
 
 
 double secante (Polinomio p, double x0, double x1, double eps,
-	     int *it, double *raiz)
+	     int *it, double *raiz, int tipo, double *tempo)
 {
+	*tempo = timestamp();
+	double erro = 1.0 + eps;
+	double xAnt = x0; double xProx=x1; double pxAnt, pxProx, dpx; //dpx é descartável mas é um parametro para entrar na funcao
+	double xProxAux, xAntAux; 
+	*it = 0;
+	while (*it < MAXIT && erro > eps) 
+	{
+		*it = *it + 1;
+		if (tipo == RAPIDO)
+		{
+			calcPolinomio_rapido(p,xAnt, &pxAnt, &dpx);
+			calcPolinomio_rapido(p,xProx, &pxProx, &dpx );
+		}
+		else
+		{
+			calcPolinomio_lento(p,xAnt, &pxAnt, &dpx);
+			calcPolinomio_lento(p,xProx, &pxProx, &dpx );
+		}
+		xProxAux = xProx;
+		xProx = xProx - (pxProx * (xProx-xAnt))/(pxProx-pxAnt);
+		xAntAux = xAnt;
+		xAnt = xProxAux;
+		erro = erro_relativo_aproximado(xProx, xAnt);
+		imprime_resumo_secante(it, xAntAux, xProxAux, xProx, pxAnt, pxProx, erro);
 
+	}
+	*raiz = xProx;
+	*tempo = timestamp() - *tempo;
+	return erro;
 }
 
 
@@ -112,4 +140,11 @@ void imprime_polinomio (Polinomio *p)
 void imprime_resumo_newton(int *it, double xi, double px, double dpx, double erro)
 {
 	printf("%10d|%10g|%14g|%14g|%16g\n", *it,xi,px,dpx,erro);
+}
+
+void imprime_resumo_secante(int *it, double xAntAux, double xProxAux,
+     double pxAnt, double pxProx, double xProx, double erro)
+{
+		printf("%10d|%10g|%10g|%14g|%14g|%10g|%16g\n", *it,xAntAux,xProxAux,pxAnt,pxProx, xProx,erro);
+
 }

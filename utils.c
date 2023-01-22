@@ -92,6 +92,10 @@ void imprime_cabecario(gerenciadorEntrada* io, int tipo)
     printf("Rapido");
   else
     printf("Lento");
-  printf("\n Iteracao |    x     |     F(x)     |     F(x)'    |      erro      \n");
+  if(io->metodo == NEWTONRAPHSON)
+    printf("\n Iteracao |    x     |     F(x)     |     F(x)'    |      erro      \n");
+  else
+    printf("\n Iteracao |   xi-1   |    xi    |    F(xi-1)   |    F(xi)'    |   xi+1   |      erro      \n");
+
 
 }

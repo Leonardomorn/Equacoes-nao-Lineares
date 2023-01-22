@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv) 
 {
-  gerenciadorEntrada gE;
+  gerenciadorEntrada gE; double x0,x1;
   Polinomio* p;
   int it; double raiz;
   double tempo;
@@ -19,14 +19,34 @@ int main(int argc, char** argv)
 
   if(gE.metodo == NEWTONRAPHSON)
   {
+    printf("Digite um chute inicial: \n");
+    scanf("%lf", &x0);
     imprime_cabecario(&gE, RAPIDO);
-    newtonRaphson(*p, 3, EPS, &it, &raiz, RAPIDO, &tempo);
-      printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+    newtonRaphson(*p, x0, EPS, &it, &raiz, RAPIDO, &tempo);
+    printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+    printf("\n raiz: %10g", raiz);
     imprime_cabecario(&gE, LENTO);
-    newtonRaphson(*p, 3, EPS, &it, &raiz, LENTO, &tempo);
-      printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+    newtonRaphson(*p, x0, EPS, &it, &raiz, LENTO, &tempo);
+    printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo);
+    printf("\n raiz: %10g", raiz); 
 
   }
+  else
+   {
+    printf("Digite o x0 : \n");
+    scanf("%lf", &x0);
+    printf("Digite o x1 : \n");
+    scanf("%lf",&x1);
+    imprime_cabecario(&gE, RAPIDO);
+    secante(*p, x0, x1, EPS, &it, &raiz, RAPIDO, &tempo);
+    printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+    printf("\n raiz: %10g", raiz);
+    imprime_cabecario(&gE, LENTO);
+    secante(*p, x0, x1, EPS, &it, &raiz, LENTO, &tempo);
+    printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+    printf("\n raiz: %10g", raiz);
+  } 
+
 
   printf("\n");
 
