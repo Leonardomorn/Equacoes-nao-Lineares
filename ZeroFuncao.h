@@ -10,6 +10,7 @@
 #define MAXIT 500
 #define EPS 1.0e-8
 
+
 /*!
   \brief Estrutura de um polinomio 
   \param grau é o grau do polinomio
@@ -20,8 +21,11 @@ typedef struct {
   int grau;
 } Polinomio;
 
+void aloca_e_inicializa_polinomio( gerenciadorEntrada* io, Polinomio* p);
+void imprime_polinomio (Polinomio *p);
+void imprime_resumo_newton(int *it, double xi, double px, double dpx, double erro);
 
-double newtonRaphson (Polinomio p, double x0, double eps, int *it, double *raiz);
+double newtonRaphson (Polinomio p, double x0, double eps, int *it, double *raiz, int tipo, double tempo);
 double secante (Polinomio p, double x0, double x1, double eps, int *it, double *raiz);
 
 void calcPolinomio_rapido(Polinomio p, double x, double *px, double *dpx );

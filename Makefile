@@ -1,7 +1,7 @@
     CC     = gcc -g
 
     CFLAGS = -I/usr/include
-    LFLAGS = -lm
+    LFLAGS = -lm 
 
       PROG = labZero
       OBJS = utils.o \
