@@ -26,8 +26,9 @@ double erro_relativo_aproximado(double xProx, double xi)
 	\return erro relativo aproximado
 */
 double newtonRaphson (Polinomio p, double x0, double eps,
-		   int *it, double *raiz, int tipo, double tempo)
+		   int *it, double *raiz, int tipo, double *tempo)
 {
+	*tempo = timestamp();
 	double erro = 1.0 + eps;
 	double xi = x0; double xProx; double px, dpx;
 	*it = 0;
@@ -39,12 +40,12 @@ double newtonRaphson (Polinomio p, double x0, double eps,
 		else
 		calcPolinomio_lento(p,xi,&px,&dpx);
 		xProx = xi - (px / dpx);
-		// printf("\nx:%f dx:%f ", px, dpx);
 		erro = erro_relativo_aproximado(xProx, xi);
 		imprime_resumo_newton(it, xi, px, dpx, erro);
 		xi = xProx;
 	}
 	*raiz = xProx;
+	*tempo = timestamp() - *tempo;
 	return erro;
 }
 

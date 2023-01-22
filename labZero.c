@@ -20,13 +20,15 @@ int main(int argc, char** argv)
   if(gE.metodo == NEWTONRAPHSON)
   {
     imprime_cabecario(&gE, RAPIDO);
-    newtonRaphson(*p, 3, EPS, &it, &raiz, RAPIDO, tempo);
+    newtonRaphson(*p, 3, EPS, &it, &raiz, RAPIDO, &tempo);
+      printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
     imprime_cabecario(&gE, LENTO);
-    newtonRaphson(*p, 3, EPS, &it, &raiz, LENTO, tempo);
+    newtonRaphson(*p, 3, EPS, &it, &raiz, LENTO, &tempo);
+      printf("\n numero de iteracoes : %d tempo total: %5g", it, tempo); 
+
   }
 
-  printf("\n numero de iteracoes : %d\n ", it);
-  printf("\n raiz : %f ", raiz);
+  printf("\n");
 
 
 
